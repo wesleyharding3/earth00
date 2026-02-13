@@ -3893,6 +3893,44 @@
         return dot < 0;
       }
 
+<<<<<<< HEAD
+=======
+      function updateCityGlow() {
+
+        const cameraDir = new THREE.Vector3();
+        camera.getWorldDirection(cameraDir).normalize();
+
+        const positionsAttr = cityPoints.geometry.attributes.position;
+        const count = positionsAttr.count;
+
+        let maxAlignment = 0;
+
+        for (let i = 0; i < count; i++) {
+
+          const cityPos = new THREE.Vector3();
+          cityPos.fromBufferAttribute(positionsAttr, i);
+          cityPos.applyMatrix4(cityPoints.matrixWorld);
+          cityPos.normalize();
+
+          const dot = cameraDir.dot(cityPos);
+
+          if (dot > maxAlignment) maxAlignment = dot;
+        }
+
+        const glow = Math.pow(Math.max(0, maxAlignment), 3);
+        cityMat.opacity = 0.25 + glow * 0.9;
+        cityMat.size = citySize * (0.6 + glow * 1.4);
+        }
+
+  // Smooth dial falloff
+  const glow = Math.pow(Math.max(0, maxAlignment), 3);
+
+  cityMat.opacity = 0.25 + glow * 0.9;
+  cityMat.size = citySize * (0.6 + glow * 1.4);
+}
+
+
+>>>>>>> 38c5c23 (new name)
       const cityLabelsContainer = document.getElementById("cityLabels");
       const cityLabels = cities.map(city => {
           const div = document.createElement("div");
@@ -4071,6 +4109,11 @@
 
         camera.position.z += (targetZoom-camera.position.z)*0.1;
 
+<<<<<<< HEAD
+=======
+        updateCityGlow();   
+
+>>>>>>> 38c5c23 (new name)
         updateHoverLabels();
         renderer.render(scene,camera);
       }
@@ -4191,4 +4234,8 @@
     });
   </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 38c5c23 (new name)
